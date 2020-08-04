@@ -7,12 +7,12 @@ namespace calendar
         const string delimeter = "\t";
         const string transferer = "\n";
 
-        static DateTime date = DateTime.Now;
+        static DateTime currentDate = DateTime.Now;
 
         static void Main(string[] args)
         {
-            int year = date.Month;
-            int month = date.Month;
+            int year = currentDate.Month;
+            int month = currentDate.Month;
             int days = DateTime.DaysInMonth(year, month);
             
             DateTime firstDay = new DateTime(year, month, 1);
@@ -27,11 +27,9 @@ namespace calendar
         {
             String calendar = "";
 
-            for (int i = 0; i < (int) firstDay.DayOfWeek; i++)
-            {
+            for (int i = 0; i < (int) firstDay.DayOfWeek; i++) {
                 calendar += delimeter;
             }
-
 
             for (var day = firstDay; day <= lastDay; day = day.AddDays(1)) {
                 HighlightDay(day);
@@ -43,21 +41,18 @@ namespace calendar
                 }
             }
     
-
             return calendar;
         }
 
         private static void DrawHeader()
         {
-            Console.WriteLine(date.ToString("MMMM") + " " + date.ToString("yyyy"));
+            Console.WriteLine(currentDate.ToString("MMMM") + " " + currentDate.ToString("yyyy"));
             Console.WriteLine("Mo\tTu\tWe\tTh\tFr\tSa\tSu");
         }
 
         private static void HighlightDay(DateTime day)
-        {
-            DateTime current = DateTime.Now;
-            
-            if (current == day) {
+        {   
+            if (currentDate == day) {
                 Console.ForegroundColor = ConsoleColor.Yellow;
             } else if (day.DayOfWeek == DayOfWeek.Saturday | day.DayOfWeek != DayOfWeek.Sunday) {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -65,6 +60,5 @@ namespace calendar
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
-
     }
 }  
